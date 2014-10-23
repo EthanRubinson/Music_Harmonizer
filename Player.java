@@ -40,6 +40,8 @@ public class Player {
 		scaleToKey.put("HA", KeyEvent.VK_SLASH);
 		
 		noteToChord = new HashMap<String,Triple<String,String,String>>();
+		noteToChord.put("LA", new Triple<String,String,String>("LD,LF,LA", "LF,LA,C", "LA,C,E"));
+		noteToChord.put("LB", new Triple<String,String,String>("LE,LG,LB", "LG,LB,D", "LB,D,F"));
 		noteToChord.put("C", new Triple<String,String,String>("LF,LA,C", "LA,C,E", "C,E,G"));
 		noteToChord.put("D", new Triple<String,String,String>("LG,LB,D", "LB,D,F", "D,F,A"));
 		noteToChord.put("E", new Triple<String,String,String>("LA,C,E",  "C,E,G",  "E,G,B"));
@@ -71,6 +73,10 @@ public class Player {
 		int note1 = -1;
 		int note2 = -1;
 		int note3 = -1;
+		int note4 = -1;
+		int note5 = -1;
+		int note6 = -1;
+		
 		if(chordNotes.hasMoreTokens())
 			note1 = scaleToKey.get(chordNotes.nextToken());
 		
@@ -80,6 +86,15 @@ public class Player {
 		if(chordNotes.hasMoreTokens())
 			note3 = scaleToKey.get(chordNotes.nextToken());
 		
+		if(chordNotes.hasMoreTokens())
+			note4 = scaleToKey.get(chordNotes.nextToken());
+		
+		if(chordNotes.hasMoreTokens())
+			note5 = scaleToKey.get(chordNotes.nextToken());
+		
+		if(chordNotes.hasMoreTokens())
+			note6 = scaleToKey.get(chordNotes.nextToken());
+		
 
 		if(note1 != -1)
 			robot.keyPress(note1);
@@ -87,8 +102,17 @@ public class Player {
 		if(note2 != -1)
 			robot.keyPress(note2);
 		
-		if(note2 != -1)
+		if(note3 != -1)
 			robot.keyPress(note3);
+		
+		if(note4 != -1)
+			robot.keyPress(note4);
+		
+		if(note5 != -1)
+			robot.keyPress(note5);
+		
+		if(note6 != -1)
+			robot.keyPress(note6);
 		
 		try {
 			Thread.sleep((int)(time * 450));
@@ -103,6 +127,15 @@ public class Player {
 		
 		if(note3 != -1)
 			robot.keyRelease(note3);
+		
+		if(note4 != -1)
+			robot.keyRelease(note4);
+		
+		if(note5 != -1)
+			robot.keyRelease(note5);
+		
+		if(note6 != -1)
+			robot.keyRelease(note6);
 		
 		try {
 			Thread.sleep((int)(time * 50));
@@ -125,19 +158,20 @@ public class Player {
 			
 			Triple<String, String, String> possibleNotes = noteToChord.get(aNote);
 			
-			int randomNum = rand.nextInt(3);
+			//int randomNum = rand.nextInt(3);
 			//randomNum = 1;
 			
-			if(randomNum == 0){
-				harmonizedTune += possibleNotes.x;
+			/*if(randomNum == 0){
+				harmonizedTune += possibleNotes.z;
 			}
 			else if(randomNum == 1){
 				harmonizedTune += possibleNotes.y;
 			}
 			else {
 				harmonizedTune += possibleNotes.z;
-			}
+			}*/
 			
+			harmonizedTune += possibleNotes.z;
 			harmonizedTune += "|" + aLength + " ";
 		}
 		
@@ -188,19 +222,20 @@ public class Player {
 		}
 		
 		
-		String hot_cross_buns = "B|1 A|1 G|2 B|1 A|1 G|2 G|.5 G|.5 G|.5 G|.5 A|.5 A|.5 A|.5 A|.5 "
-							  + "B|1 A|1 G|2";
+		String hot_cross_buns = "B|1.25 A|1.25 G|2.25 B|1.25 A|1.25 G|2.25 G|.75 G|.75 G|.75 G|.75 A|.75 A|.75 A|.75 A|.75 "
+							  + "B|1.25 A|1.25 G|2.25";
 		
 		
-		String old_farm = "G|1 G|1 G|1 D|1 E|1 E|1 D|2 B|1 B|1 A|1 A|1 G|3 "
-						+ "G|1 G|1 G|1 D|1 E|1 E|1 D|2 B|1 B|1 A|1 A|1 G|3 "
-						+ "D|.5 D|.5 G|1 G|1 G|1 D|.5 D|.5 G|1 G|1 G|2 "
-						+ "G|.5 G|.5 G|1 G|.5 G|.5 G|1 G|.5 G|.5 G|.5 G|.5 G|1 G|1 "
-						+ "G|1 G|1 G|1 D|1 E|1 E|1 D|2 B|1 B|1 A|1 A|1 G|3 ";
+		String old_farm = "G|1.25 G|1.25 G|1.25 D|1.25 E|1.25 E|1.25 D|2.25 B|1.25 B|1.25 A|1.25 A|1.25 G|3.25 "
+						+ "G|1.25 G|1.25 G|1.25 D|1.25 E|1.25 E|1.25 D|2.25 B|1.25 B|1.25 A|1.25 A|1.25 G|3.25 "
+						+ "D|.75 D|.75 G|1.25 G|1.25 G|1.25 D|.75 D|.75 G|1.25 G|1.25 G|2.25 "
+						+ "G|.75 G|.75 G|1.25 G|.75 G|.75 G|1.25 G|.75 G|.75 G|.75 G|.75 G|1.25 G|1.25 "
+						+ "G|1.25 G|1.25 G|1.25 D|1.25 E|1.25 E|1.25 D|2.25 B|1.25 B|1.25 A|1.25 A|1.25 G|3.25 ";
 		
+		String twinkle = "C|1 C|1 G|1 G|1 A|1 A|1 G|2 F|1 F|1 E|1 E|1 D|1 D|1 C|2 G|1 G|1 F|1 F|1 E|1 E|1 D|2 G|1 G|1 F|1 F|1 E|1 E|1 D|2 C|1 C|1 G|1 G|1 A|1 A|1 G|2 F|1 F|1 E|1 E|1 D|1 D|1 C|2";
+
 		
-		
-		String songSelection = old_farm;
+		String songSelection = twinkle;
 		
 		
 		
@@ -225,37 +260,6 @@ public class Player {
 		for (Tuple<String,Double> chord : chords){
 			player.playChord(chord.x, chord.y);
 		}
-		
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		String chordedTune = player.tuneToChords(songSelection);
-		// Parse chords and time from the tune
-		chords = new ArrayList<Tuple<String,Double>>();
-		tok3Chord = new StringTokenizer(chordedTune, " ");
-		while(tok3Chord.hasMoreTokens()){
-			String nextChord = tok3Chord.nextToken();
-			StringTokenizer tokLength = new StringTokenizer(nextChord, "|");
-			
-			String notes = tokLength.nextToken();
-			double length = Double.parseDouble(tokLength.nextToken());
-			
-			chords.add(new Tuple<String,Double>(notes,length));
-		}
-		
-		debugPrintln(chords.toString());
-		
-		for (Tuple<String,Double> chord : chords){
-			player.playChord(chord.x, chord.y);
-		}
-		
-		
-		
 		
 		try {
 			Thread.sleep(5000);
